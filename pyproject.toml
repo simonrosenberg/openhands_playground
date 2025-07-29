@@ -12,6 +12,8 @@ packages = [{include = "openhands_playground", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+openai = "^1.0.0"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
