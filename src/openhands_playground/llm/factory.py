@@ -107,9 +107,7 @@ class LLMFactory:
         """
         return cast(
             OpenAILLM,
-            cls.create_llm(
-                "openai", model_name=model_name, api_key=api_key, **kwargs
-            ),
+            cls.create_llm("openai", model_name=model_name, api_key=api_key, **kwargs),
         )
 
     @classmethod
@@ -123,6 +121,4 @@ class LLMFactory:
         Returns:
             Mock LLM instance
         """
-        return cast(
-            MockLLM, cls.create_llm("mock", model_name=model_name, **kwargs)
-        )
+        return cast(MockLLM, cls.create_llm("mock", model_name=model_name, **kwargs))
