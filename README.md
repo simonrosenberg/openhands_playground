@@ -77,12 +77,58 @@ This project includes the following development tools:
 ### Running Tests
 
 ```bash
-# Run all tests
+# Run all tests (excluding integration tests)
 poetry run pytest
 
 # Run tests with coverage
 poetry run pytest --cov=openhands_playground
+
+# Run only unit tests (excluding integration tests)
+poetry run pytest -m "not integration"
+
+# Run integration tests (requires OPENAI_API_KEY environment variable)
+poetry run pytest -m integration
+
+# Run all tests including integration tests
+poetry run pytest --run-integration
 ```
+
+#### Integration Tests
+
+Integration tests require a real OpenAI API key and make actual API calls. These tests are marked with the `@pytest.mark.integration` decorator and are skipped by default unless:
+
+1. The `OPENAI_API_KEY` environment variable is set
+2. You explicitly run integration tests with `-m integration`
+
+To run integration tests locally:
+
+```bash
+# Set your OpenAI API key
+export OPENAI_API_KEY="your-api-key-here"
+
+# Run integration tests
+poetry run pytest -m integration
+```
+
+**Note**: Integration tests will consume OpenAI API credits, so use them sparingly during development.
+
+#### GitHub Actions and Secrets
+
+This repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that:
+
+1. Runs unit tests, linting, and type checking on every push and pull request
+2. Runs integration tests only on pushes to the main branch using GitHub secrets
+
+To set up the OpenAI API key as a GitHub secret:
+
+1. Go to your repository on GitHub
+2. Navigate to Settings → Secrets and variables → Actions
+3. Click "New repository secret"
+4. Name: `OPENAI_API_KEY`
+5. Value: Your OpenAI API key
+6. Click "Add secret"
+
+The integration tests will then run automatically when code is pushed to the main branch, using the secret API key without exposing it in logs or code.
 
 ### Code Quality
 
