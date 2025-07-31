@@ -104,6 +104,29 @@ poetry run mypy src/
 poetry run ruff check . && poetry run ruff format --check . && poetry run mypy src/ && poetry run pytest
 ```
 
+## Continuous Integration
+
+This project uses GitHub Actions for CI/CD. The workflow runs on Python 3.8, 3.9, 3.10, and 3.11.
+
+### CI Configuration
+
+The CI workflow includes:
+- Dependency installation with Poetry
+- Running tests with pytest
+- Code linting with ruff
+- Type checking with mypy
+
+### OpenAI API Key for CI
+
+The CI workflow requires access to the OpenAI API key to run integration tests. The API key should be configured as a GitHub repository secret:
+
+1. Go to your repository settings
+2. Navigate to "Secrets and variables" → "Actions"
+3. Add a new repository secret named `OPENAI_API_KEY`
+4. Set the value to your OpenAI API key
+
+The tests are designed to gracefully skip OpenAI integration tests if the API key is not available, so the CI will still pass without the secret, but some tests will be skipped.
+
 ## LLM Usage
 
 This package provides a factory pattern for creating and using different LLM providers.
