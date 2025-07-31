@@ -6,9 +6,10 @@ build-backend = "poetry.core.masonry.api"
 name = "openhands-playground"
 version = "0.1.0"
 description = "A playground repository for OpenHands development"
-authors = ["Simon Rosenberg <simon@example.com>"]
+authors = ["OpenHands <openhands@all-hands.dev>", "Simon Rosenberg <simon@example.com>"]
 readme = "README.md"
 packages = [{include = "openhands_playground", from = "src"}]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -19,10 +20,11 @@ python-dotenv = "^1.0.0"
 pytest = "^7.4.0"
 ruff = "^0.1.0"
 mypy = "^1.5.0"
+pre-commit = "^3.5.0"
 
 [tool.ruff]
 target-version = "py38"
-line-length = 88
+line-length = 100
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -31,14 +33,53 @@ select = [
     "B",  # flake8-bugbear
     "C4", # flake8-comprehensions
     "UP", # pyupgrade
+    "N",  # pep8-naming
+    "ANN", # flake8-annotations
+    "S",  # flake8-bandit
+    "A",  # flake8-builtins
+    "COM", # flake8-commas
+    "DTZ", # flake8-datetimez
+    "T10", # flake8-debugger
+    "EM",  # flake8-errmsg
+    "EXE", # flake8-executable
+    "ISC", # flake8-implicit-str-concat
+    "ICN", # flake8-import-conventions
+    "G",   # flake8-logging-format
+    "PIE", # flake8-pie
+    "T20", # flake8-print
+    "PT",  # flake8-pytest-style
+    "Q",   # flake8-quotes
+    "RSE", # flake8-raise
+    "RET", # flake8-return
+    "SLF", # flake8-self
+    "SIM", # flake8-simplify
+    "TID", # flake8-tidy-imports
+    "TCH", # flake8-type-checking
+    "ARG", # flake8-unused-arguments
+    "PTH", # flake8-use-pathlib
+    "ERA", # eradicate
+    "PD",  # pandas-vet
+    "PGH", # pygrep-hooks
+    "PL",  # pylint
+    "TRY", # tryceratops
+    "FLY", # flynt
+    "NPY", # numpy-specific rules
+    "AIR", # airflow
+    "PERF", # perflint
+    "FURB", # refurb
+    "LOG", # flake8-logging
+    "RUF"  # ruff-specific rules
 ]
-ignore = []
+ignore = ["COM812", "ISC001"]
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["openhands_playground"]
 
 [tool.mypy]
 python_version = "3.8"
@@ -49,6 +90,7 @@ disallow_incomplete_defs = true
 check_untyped_defs = true
 disallow_untyped_decorators = true
 no_implicit_optional = true
+strict_optional = true
 warn_redundant_casts = true
 warn_unused_ignores = true
 warn_no_return = true
